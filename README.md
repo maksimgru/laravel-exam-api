@@ -20,7 +20,7 @@ make init
 ```
 
 ## Jobs Queue
-### By default Jobs are handled as SYNC
+### By default, Jobs are handled as SYNC
 (QUEUE_CONNECTION=sync)
 
 ### If you need ASYNC jobs handling
@@ -77,3 +77,8 @@ make ps
 - run tests: ```pu```
 - run fresh DB (and clear app cache): ```fresh```
 - run fresh on test DB: ```fresh-test```
+
+### Screenshots
+![screenshots/screenshot-1.png](screenshots/screenshot-1.png "screenshot-1")
+![screenshots/screenshot-2.png](screenshots/screenshot-2.png "screenshot-2")
+![screenshots/screenshot-3.png](screenshots/screenshot-3.png "screenshot-3")
