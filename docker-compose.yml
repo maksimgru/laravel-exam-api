@@ -1,0 +1,72 @@
+version: '3.5'
+
+networks:
+  skinny:
+    external: true
+
+services:
+  app:
+    container_name: skinny-app
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    container_name: skinny-app
+    working_dir: /var/www/app
+    platform: linux/x86_64
+    user: root
+    ports:
+      - 8180:80
+    volumes:
+      - ./app/:/var/www/app
+      - ./docker/bashrc:/root/.bashrc
+    networks:
+      - skinny
+
+  db:
+    image: mariadb
+    container_name: skinny-db
+    platform: linux/x86_64
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "skinny"
+      MYSQL_USER: "skinny"
+      MYSQL_PASSWORD: "secret"
+    ports:
+      - 3307:3306
+    volumes:
+      - ./_volumes/db:/var/lib/mysql
+    networks:
+      - skinny
+
+  db-testing:
+      image: mariadb
+      container_name: skinny-db-testing
+      platform: linux/x86_64
+      restart: always
+      ports:
+        - 3308:3306
+      volumes:
+        - ./_volumes/db-testing:/var/lib/mysql
+      environment:
+        MYSQL_ROOT_PASSWORD: "root"
+        MYSQL_DATABASE: "skinny-testing"
+        MYSQL_USER: "skinny"
+        MYSQL_PASSWORD: "secret"
+      networks:
+        - skinny
+
+  redis:
+    image: redis:alpine
+    container_name: ms-redis
+    command: redis-server --requirepass secret
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - ./_volumes/redis:/data
+    expose:
+      - "6379"
+    ports:
+      - 16379:6379
+    networks:
+      - skinny
