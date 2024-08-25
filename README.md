@@ -1,31 +1,31 @@
 # Example
 
-## Only First time:
+# Only First time:
 ### to build images, up containers, init app
 ```bash
 make run
 ```
 # OR step by step
 
-## Build Images, Run Containers:
+### Build Images, Run Containers:
 ```bash
 make build
 make up
 ```
 
-## Init App:
-### install vendors, run DB migrations
+### Init App: 
+install vendors, run DB migrations
 ```bash
 make init
 ```
 
-## Jobs Queue
-### By default, Jobs are handled as SYNC
-(QUEUE_CONNECTION=sync)
+### Jobs Queue
+By default, Jobs are sync handled
+`QUEUE_CONNECTION=sync`
 
 ### If you need ASYNC jobs handling
 You need:
-- Change in .env file the variable to QUEUE_CONNECTION=database
+- Change in .env file the variable to `QUEUE_CONNECTION=database`
 - Run Queue Worker
 (in separated terminal window)
 ```bash
