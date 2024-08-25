@@ -35,6 +35,7 @@ make queue
 # Now you can check endpoints
 - health check endpoint: `GET http://localhost:8180/up`
 - submit endpoint: `POST http://localhost:8180/api/submit`
+- see logs in `app/storage/logs/laravel.log`
 
 ### Run, or stop, or down containers
 ```bash

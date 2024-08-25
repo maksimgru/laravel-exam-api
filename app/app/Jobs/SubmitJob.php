@@ -6,18 +6,12 @@ use App\Events\SubmissionSaved;
 use App\Jobs\DTO\SubmitDTO;
 use App\Models\Submission;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use function event;
 
 class SubmitJob implements ShouldQueue
 {
-    use Dispatchable;
-    use InteractsWithQueue;
     use Queueable;
-    use SerializesModels;
 
     public function __construct(
         private readonly SubmitDTO $submitDTO,
@@ -32,6 +26,11 @@ class SubmitJob implements ShouldQueue
             'message' => $this->submitDTO->message,
         ]);
 
+        // We have several variant to dispatch domain event after model has been saved:
+        // (1) (current) Event should implement interface "ShouldDispatchAfterCommit" and listener - "ShouldHandleEventsAfterCommit"
+        // (2) In configs/queue.php we can set option ['after_commit' => true] for selected queue connection
+        // (3) Using Closures in protected static function boot() { static::created(function ($model) {...}) }
+        // (4) Using Observers: Create an observer for model and register this observer in the boot method on AppServiceProvider
         event(new SubmissionSaved($submission));
     }
 }

@@ -39,7 +39,7 @@ class LogSubmissionSavedListener implements ShouldQueue, ShouldHandleEventsAfter
         ];
 
         $this->logger->error(
-            message: 'Fail Submission Save with: ',
+            message: 'Fail Submission Save with: ' . $exception->getMessage(),
             context: $context,
         );
     }
