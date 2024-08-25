@@ -23,6 +23,7 @@ class LogSubmissionSavedListener implements ShouldQueue, ShouldHandleEventsAfter
         $context = [
             'name' =>  $event->submission->name,
             'email' => $event->submission->email,
+            'message' => $event->submission->message,
         ];
 
         $this->logger->info(

@@ -1,7 +1,7 @@
 # Example
 
 # Only First time:
-### to build images, up containers, init app
+### to build images, up containers, init app, run queue worker
 ```bash
 make run
 ```
@@ -20,17 +20,19 @@ make init
 ```
 
 ### Jobs Queue
-By default, Jobs are sync handled
-`QUEUE_CONNECTION=sync`
-
-### If you need ASYNC jobs handling
-You need:
-- Change in .env file the variable to `QUEUE_CONNECTION=database`
-- Run Queue Worker
-(in separated terminal window)
+By default, async handling of jobs
+`QUEUE_CONNECTION=database`
+- You should Run Queue Worker
 ```bash
 make queue
 ```
+
+
+### If you need SYNC jobs handling
+You need:
+- Change in .env file the variable to `QUEUE_CONNECTION=sync`
+- Dont need to run `make queue`
+
 
 # Now you can check endpoints
 - health check endpoint: `GET http://localhost:8180/up`

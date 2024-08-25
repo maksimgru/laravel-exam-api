@@ -1,4 +1,4 @@
-run: build up init
+run: build up init queue
 
 build:
 	@echo "[INFO] Creating new docker network "
