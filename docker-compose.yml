@@ -1,5 +1,3 @@
-version: '3.5'
-
 networks:
   skinny:
     external: true
@@ -10,7 +8,6 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile
-    container_name: skinny-app
     working_dir: /var/www/app
     platform: linux/x86_64
     user: root
